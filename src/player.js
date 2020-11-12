@@ -57,23 +57,27 @@ class Player extends MoveableObject {
         }
     }
     bindKeys(ctx){
-        key('d', () => {
-            this.move(ctx, this.RIGHT)
-            this.draw(ctx)
+        document.addEventListener("keydown", e => {
+            console.log(e)
+            switch (e.key){
+            case "a":
+                this.move(ctx, this.LEFT)
+                this.draw(ctx)
+                break;
+            case "d":
+                this.move(ctx, this.RIGHT)
+                this.draw(ctx)
+                break;
+            case "s":
+                this.move(ctx, this.DOWN)
+                this.draw(ctx)
+                break;
+            case "w":
+                this.move(ctx, this.UP)
+                this.draw(ctx)
+            }
         })
-        key('a', () => {
-            this.move(ctx, this.LEFT)
-            this.draw(ctx)
-        })
-        key('w', () => {
-            this.move(ctx, this.UP)
-            this.draw(ctx)
-        })
-        key('s', () => {
-            this.move(ctx, this.DOWN)
-            this.draw(ctx)
-        })
-        key('r', () => this.rotate(ctx))
+       
     }
 }
 

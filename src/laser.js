@@ -12,7 +12,6 @@ class Laser extends MoveableObject {
     }
     shoot(ctx){
         // window.requestAnimationFrame(this.shoot)
-        // console.log("shoot")
         window.setInterval(() => {
             this.move(ctx, "UP")
             this.draw(ctx)
@@ -65,14 +64,7 @@ class Laser extends MoveableObject {
                 this.y = this.y + this.vel
                 break;
         }
-        ENEMIES.forEach(enemy => console.log(enemy))
-    }
-    fire(ctx){
-        for(let i = 1; i < 50; i++){
-            console.log("fired")
-            this.move(ctx, "UP")
-            this.draw(ctx)
-        }
+        // ENEMIES.forEach(enemy => console.log(enemy))
     }
 }
 
