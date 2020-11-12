@@ -75,6 +75,7 @@ class Player extends MoveableObject {
             case "w":
                 this.move(ctx, this.UP)
                 this.draw(ctx)
+                break;
             }
         })
        

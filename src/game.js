@@ -1,13 +1,15 @@
 import MoveableObject from './movable_object'
 import Player from './player'
 import Laser from './laser'
-
+import Instructions from './instructions'
 
 class Game {
     constructor(ctx){
         this.ctx = ctx
     }
     start(){
+        const instructions = new Instructions("30px Arial")
+        instructions.draw(this.ctx)
         const player = new Player()
         player.draw(this.ctx)
         player.bindKeys(this.ctx)
