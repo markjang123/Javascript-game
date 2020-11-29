@@ -1,8 +1,11 @@
 import MoveableObject from './movable_object'
+import {GAME} from './index'
+import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE} from './game'
+import Laser from './laser'
 
 class Player extends MoveableObject {
-    constructor(){
-        super()
+    constructor(x, y, height, width, color, vel, ctx){
+        super(x, y, height, width, color, vel, ctx)
         this.x = window.innerWidth / 2
         this.y = window.innerHeight / 2
         this.height = 30
@@ -13,8 +16,31 @@ class Player extends MoveableObject {
         this.LEFT = "LEFT"
         this.UP = "UP"
         this.DOWN = "DOWN"
+        this.ctx = ctx
+        this.bindKeys(this.ctx)
+        this.hitPoints = 10
+    }
+    checkOutboundsTop(){
+        return this.y < 0
+    }
+    checkOutboundsBottom(){
+        const canvas = document.getElementById("game-canvas")
+        return this.y + this.height > canvas.height 
+    }
+    checkOutboundsRight(){
+        const canvas = document.getElementById("game-canvas")
+        return this.x + this.width > canvas.width
+    }
+    checkOutboundsLeft(){
+        return this.x < 20
     }
     draw(ctx){
+        ENEMIES.forEach(enemy => {
+            if (this.checkCollision(enemy)){
+                enemy.color = "pink"
+                enemy.draw(ctx)
+            } 
+        })
         ctx.fillStyle = this.color;
         // ctx.rotate(10 * Math.PI / 180)    
         ctx.beginPath()
@@ -31,32 +57,93 @@ class Player extends MoveableObject {
         // ctx.translate(-(20/2), -(30/2));
         ctx.restore
     }
+    checkCollision(object){
+        let top = this.y
+        let bottom = this.y + this.height
+        let left = this.x
+        let right = this.x + this.width
+        if (top > object.y + object.height || right < object.x || left > object.x + object.width || bottom < object.y){
+            return false
+        }
+        return true
+    }
+    blink(){
+        this.color = "red"
+        setTimeout(() => this.color = "white", 100)
+    }
     move(ctx, direction){
-        debugger
         switch(direction){
             case "RIGHT":
-                debugger
-                ctx.clearRect(this.x - 10, this.y - 1, this.width, this.height + 2)
-                this.x = this.wrap(this.x + this.vel)
+                this.x = this.x + this.vel
+                if (this.checkOutboundsRight()){
+                    this.x = this.x - this.vel
+                }
+                ENEMIES.forEach(enemy => {
+                    if (this.checkCollision(enemy)){
+                        this.x = this.x - this.vel
+                    } 
+                })
+                GAME[0].draw()
                 break;
             case "LEFT":
-                debugger
-                ctx.clearRect(this.x - 10, this.y - 1, this.width, this.height + 2)
                 this.x = this.x - this.vel
+                if (this.checkOutboundsLeft()){
+                    this.x = this.x + this.vel
+                }
+                ENEMIES.forEach(enemy => {
+                    if (this.checkCollision(enemy)){
+                        this.x = this.x + this.vel
+                    } 
+                })
+                GAME[0].draw()
                 break;
             case "UP":
-                debugger
-                ctx.clearRect(this.x - 10, this.y - 1, this.width, this.height + 2)
                 this.y = this.y - this.vel
+                if (this.checkOutboundsTop()){
+                    this.y = this.y + this.vel
+                }
+                ENEMIES.forEach(enemy => {
+                    if (this.checkCollision(enemy)){
+                        this.y = this.y + this.vel
+                    } 
+                })
+                GAME[0].draw()
                 break;
             case "DOWN":
-                debugger
-                ctx.clearRect(this.x - 10, this.y - 1, this.width, this.height + 2)
+                
                 this.y = this.y + this.vel
+                if (this.checkOutboundsBottom()){
+                    this.y = this.y - this.vel
+                }
+                ENEMIES.forEach(enemy => {
+                    if (this.checkCollision(enemy)){
+                        this.y = this.y - this.vel
+                    } 
+                })
+                GAME[0].draw()
                 break;
         }
     }
+    shoot(){
+        const laser = new Laser(this.x - 2.5, this.y - 20, 20, 5, "yellow", 30)
+        LASERS.push(laser)
+        laser.draw(this.ctx)
+        requestAnimationFrame(() => laser.shoot(this.ctx))
+    }
     bindKeys(ctx){
+        // document.addEventListener("mousedown", e => {
+        //     
+        //     const shootInterval = window.setInterval(() => {
+        //         const laser = new Laser(player.x - 2.5, player.y - 20, 20, 5, "yellow", 10)
+        //         LASERS.push(laser)
+        //         laser.draw(this.ctx)
+        //         laser.shoot(this.ctx)
+        //     }, 250)
+        //     document.addEventListener("mouseup", e => window.clearInterval(shootInterval))
+        // })
+        document.addEventListener("click", e => {
+            this.shoot()
+        })
         document.addEventListener("keydown", e => {
             console.log(e)
             switch (e.key){

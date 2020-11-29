@@ -1,3 +1,58 @@
 #game-canvas {
     background-color: #001524;
+    z-index: 2;
+}
+#game-over-canvas {
+    background-color:red;
+    z-index: 1;
+}
+/* .hidden {
+    display: none;
+} */
+.game-over-container {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 180px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    height: 950px;
+    width: 1920px;
+    background-color: #001524;
+    z-index: 200;
+}
+.instructions-1 {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 60px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    height: 950px;
+    width: 1920px;
+    background-color: #001524;
+    z-index: 202;
+}
+.instructions-2 {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 180px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    height: 950px;
+    width: 1920px;
+    background-color: #001524;
+    z-index: 201;
+}
+.game-over{
+    text-align: center;
+    margin: auto;
+    /* border: 1px solid white; */
 }
