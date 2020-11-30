@@ -14,7 +14,7 @@ class Bullet extends MoveableObject {
         this.color = "white"
         this.isMoving = true
         this.distance = 0
-        this.maxDistance = 400
+        this.maxDistance = 550
         this.x = x
         this.y = y
         this.vel = 2
