@@ -5,6 +5,8 @@ import Instructions from './instructions'
 import Objective from './objective'
 import Bullet from './bullet'
 import Enemy from './enemy'
+import {INTERVALS} from './enemy'
+import {GAME} from './index'
 class Game {
     constructor(ctx){
         this.ctx = ctx
@@ -15,7 +17,7 @@ class Game {
         // alert(ENEMIES)
         OTHER.forEach(other => other.draw(this.ctx))
         ENEMIES.forEach(enemy => enemy.draw(this.ctx))
-        IMMOVABLE.forEach(object => object.draw(this.ctx))
+        OBJECTIVE.forEach(object => object.draw(this.ctx))
         BULLETS.forEach(bullet => bullet.draw(this.ctx))
     }
     start(level){
@@ -40,7 +42,7 @@ class Game {
         // repeat()
         const obj = new Objective()
         obj.draw(this.ctx)
-        IMMOVABLE.push(obj)
+        OBJECTIVE.push(obj)
         const player = new Player(1, 1, 1, 1, 1, 1, this.ctx)
         PLAYER.push(player)
         player.draw(this.ctx)
@@ -49,6 +51,24 @@ class Game {
         const enemy2 = new Enemy(player.x - 300, player.y - 200, 50, 50, "red", 20, this.ctx)
        ENEMIES.push(enemy2)
        this.drawEnemies()
+    }
+    victory(){
+        // console.log(LISTENERS)
+        // this.ctx.clearRect(0, 0, 5000, 5000)
+        // INTERVALS.forEach(interval => clearInterval(interval))
+        // LISTENERS.forEach(listener => removeEventListener(listener.type, listener))
+        // LASERS.forEach(laser => laser.isMoving = false)
+        // GAME.splice(0, 1) 
+        // ENEMIES.length = 0
+        // BULLETS.length = 0
+        // LASERS.length = 0
+        // PLAYER.length = 0
+        // this.draw()
+        this.start(2)
+        // const game2 = new Game(this.ctx)
+           
+            // GAME.push(game2)
+            // game2.start(3)
     }
     gameOver(){
         debugger
@@ -61,7 +81,7 @@ class Game {
         // ENEMIES.splice(0, ENEMIES.length)
         // LASERS.splice(0, LASERS.length)
         // PLAYER.splice(0, PLAYER.length)
-        // IMMOVABLE.splice(0, IMMOVABLE.length)
+        // OBJECTIVE.splice(0, OBJECTIVE.length)
         // OTHER.splice(0, OTHER.length)
         // BULLETS.splice(0, BULLETS.length)
         // this.ctx.clearRect(0, 0, 5000, 5000)
@@ -87,7 +107,8 @@ class Game {
 export const ENEMIES = []
 export const LASERS = []
 export const PLAYER = []
-export const IMMOVABLE = []
+export const OBJECTIVE = []
 export const OTHER = []
 export const BULLETS = []
+export const LISTENERS = []
 export default Game

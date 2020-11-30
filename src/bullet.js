@@ -1,6 +1,6 @@
 import MoveableObject from './movable_object'
 import Player from './player'
-import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, BULLETS} from './game'
+import {ENEMIES, LASERS, PLAYER, OTHER, OBJECTIVE, BULLETS} from './game'
 import {GAME} from './index'
 
 class Bullet extends MoveableObject {
@@ -14,7 +14,7 @@ class Bullet extends MoveableObject {
         this.color = "white"
         this.isMoving = true
         this.distance = 0
-        this.maxDistance = 400
+        this.maxDistance = 800
         this.x = x
         this.y = y
         this.vel = 2

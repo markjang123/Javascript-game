@@ -2,6 +2,7 @@ import MoveableObject from './movable_object'
 import {GAME} from './index'
 import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, BULLETS} from './game'
 import Bullet from './bullet'
+export const INTERVALS = []
 class Enemy extends MoveableObject {
     constructor(x, y, height, width, color, vel, ctx){
         super(x, y, height, width, color, vel, ctx)
@@ -10,18 +11,25 @@ class Enemy extends MoveableObject {
         this.height = height
         this.width = width
         this.color= "red"
-        this.vel = 10
+        this.vel = this.getRandomInRange(20, 40)
         this.RIGHT = "RIGHT"
         this.LEFT = "LEFT"
         this.UP = "UP"
         this.DOWN = "DOWN"
         this.ctx = ctx
         this.canFire = true
-        setInterval(() => this.shoot(), 500)
-        setInterval(() => this.move(this.ctx, "LEFT"), 250)
+        const enemyShootInterval = setInterval(() => this.shoot(), 500)
+        INTERVALS.push(enemyShootInterval)
+        const enemyMoveInterval = setInterval(() => this.move(this.ctx, this.dir), 250)
+        INTERVALS.push(enemyMoveInterval)
+        this.dir = "LEFT"
         this.bindKeys()
     }
-  
+     getRandomInRange(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
     shoot(){
         if (this.canFire){
             // const b = new Bullet(this.x, this.y)
@@ -75,6 +83,7 @@ class Enemy extends MoveableObject {
                 this.x = this.x + this.vel
                 if (this.checkOutboundsRight()){
                     this.x = this.x - this.vel
+                    this.dir = "LEFT"
                 }
                 // ENEMIES.forEach(enemy => {
                 //     if (this.checkCollision(enemy)){
@@ -88,6 +97,7 @@ class Enemy extends MoveableObject {
                 this.x = this.x - this.vel
                 if (this.checkOutboundsLeft()){
                     this.x = this.x + this.vel
+                    this.dir = "RIGHT"
                 }
                 // ENEMIES.forEach(enemy => {
                 //     if (this.checkCollision(enemy)){

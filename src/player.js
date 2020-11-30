@@ -1,7 +1,8 @@
 import MoveableObject from './movable_object'
 import {GAME} from './index'
-import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE} from './game'
+import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, LISTENERS} from './game'
 import Laser from './laser'
+
 
 class Player extends MoveableObject {
     constructor(x, y, height, width, color, vel, ctx){
@@ -141,10 +142,12 @@ class Player extends MoveableObject {
         //     }, 250)
         //     document.addEventListener("mouseup", e => window.clearInterval(shootInterval))
         // })
-        document.addEventListener("click", e => {
+        const shootListener = document.addEventListener("click", e => {
             this.shoot()
         })
-        document.addEventListener("keydown", e => {
+        debugger
+        LISTENERS.push(shootListener)
+        const playerMoveListener = document.addEventListener("keydown", e => {
             console.log(e)
             switch (e.key){
             case "a":
@@ -165,6 +168,7 @@ class Player extends MoveableObject {
                 break;
             }
         })
+        LISTENERS.push(playerMoveListener)
        
     }
 }

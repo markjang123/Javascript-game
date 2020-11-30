@@ -1,6 +1,6 @@
 import MoveableObject from './movable_object'
 import Player from './player'
-import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, BULLETS} from './game'
+import {ENEMIES, LASERS, PLAYER, OTHER, OBJECTIVE, BULLETS} from './game'
 import {GAME} from './index'
 
 class Laser extends MoveableObject {
@@ -87,14 +87,15 @@ class Laser extends MoveableObject {
                 GAME[0].draw()
             }
         }
-        for(const object of IMMOVABLE){
+        for(const object of OBJECTIVE){
             debugger
             if (this.checkHit(object.x, object.y, object.height, object.width)){
                 object.hitPoints -= 1
                 // alert(object.hitPoints)
                 if (object.hitPoints <= 0) {
-                    const objectIndex = IMMOVABLE.indexOf(object)
-                    IMMOVABLE.splice(objectIndex, 1)
+                    const objectIndex = OBJECTIVE.indexOf(object)
+                    OBJECTIVE.splice(objectIndex, 1)
+                    GAME[0].victory()
                 } else {
                     object.blink(ctx)
                 }

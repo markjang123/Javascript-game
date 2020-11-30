@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const ctx = canvas.getContext("2d")
             const game = new Game(ctx)
             GAME.push(game)
-            game.start(2)
+            game.start(1)
         }
     })
 })
