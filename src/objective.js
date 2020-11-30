@@ -3,12 +3,13 @@ class Objective extends ImmovableObject {
     constructor() {
         debugger
         super()
-        this.x = window.innerWidth / 2;
+        const canvas = document.getElementById("game-canvas")
+        this.x = canvas.width / 2;
         this.y = 10;
         this.height = 50
         this.width = 50
         this.color = "gray"
-        this.hitPoints = 10
+        this.hitPoints = 20
     }
     blink(ctx){
         let blinkCount = 0

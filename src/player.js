@@ -7,8 +7,9 @@ import Laser from './laser'
 class Player extends MoveableObject {
     constructor(x, y, height, width, color, vel, ctx){
         super(x, y, height, width, color, vel, ctx)
-        this.x = window.innerWidth / 2
-        this.y = window.innerHeight / 2
+        const canvas = document.getElementById("game-canvas")
+        this.x = canvas.width / 2
+        this.y = canvas.height * 0.75
         this.height = 30
         this.width = 20
         this.color= "white"

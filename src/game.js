@@ -50,9 +50,12 @@ class Game {
        ENEMIES.push(enemy1)
         const enemy2 = new Enemy(player.x - 300, player.y - 200, 50, 50, "red", 20, this.ctx)
        ENEMIES.push(enemy2)
+        const enemy3 = new Enemy(player.x + 300, player.y - 100, 50, 50, "red", 20, this.ctx)
+       ENEMIES.push(enemy3)
        this.drawEnemies()
     }
     victory(){
+        alert("YOU WIN!")
         // console.log(LISTENERS)
         // this.ctx.clearRect(0, 0, 5000, 5000)
         // INTERVALS.forEach(interval => clearInterval(interval))
@@ -64,7 +67,7 @@ class Game {
         // LASERS.length = 0
         // PLAYER.length = 0
         // this.draw()
-        this.start(2)
+        // this.start(2)
         // const game2 = new Game(this.ctx)
            
             // GAME.push(game2)
