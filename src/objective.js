@@ -1,7 +1,6 @@
 import ImmovableObject from './immovable_object'
 class Objective extends ImmovableObject {
     constructor() {
-        debugger
         super()
         const canvas = document.getElementById("game-canvas")
         this.x = canvas.width / 2;

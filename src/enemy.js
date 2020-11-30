@@ -1,11 +1,11 @@
 import MoveableObject from './movable_object'
 import {GAME} from './index'
-import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, BULLETS} from './game'
+import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, BULLETS, CTX} from './game'
 import Bullet from './bullet'
 export const INTERVALS = []
 class Enemy extends MoveableObject {
-    constructor(x, y, height, width, color, vel, ctx){
-        super(x, y, height, width, color, vel, ctx)
+    constructor(x, y, height, width, color, vel){
+        super(x, y, height, width, color, vel)
         this.x = x
         this.y = y
         this.height = height
@@ -16,11 +16,10 @@ class Enemy extends MoveableObject {
         this.LEFT = "LEFT"
         this.UP = "UP"
         this.DOWN = "DOWN"
-        this.ctx = ctx
         this.canFire = true
         const enemyShootInterval = setInterval(() => this.shoot(), 500)
         INTERVALS.push(enemyShootInterval)
-        const enemyMoveInterval = setInterval(() => this.move(this.ctx, this.dir), 250)
+        const enemyMoveInterval = setInterval(() => this.move(CTX[0], this.dir), 250)
         INTERVALS.push(enemyMoveInterval)
         this.dir = "LEFT"
         this.bindKeys()
@@ -42,12 +41,12 @@ class Enemy extends MoveableObject {
             // requestAnimationFrame(() => a.shoot(this.ctx, "DOWN"))
             const c = new Bullet(this.x, this.y + this.height)
             BULLETS.push(c)
-            c.draw(this.ctx)
-            requestAnimationFrame(() => c.shoot(this.ctx, "DOWN"))
+            c.draw(CTX[0])
+            requestAnimationFrame(() => c.shoot(CTX[0], "DOWN"))
             const d = new Bullet(this.x + this.width, this.y + this.height)
             BULLETS.push(d)
-            d.draw(this.ctx)
-            requestAnimationFrame(() => d.shoot(this.ctx, "DOWN"))
+            d.draw(CTX[0])
+            requestAnimationFrame(() => d.shoot(CTX[0], "DOWN"))
         }
     }
     rotate(ctx){

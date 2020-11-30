@@ -31,6 +31,23 @@
     background-color: #001524;
     z-index: 200;
 }
+.level-complete {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 180px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    height: 950px;
+    width: 950px;
+    background-color: #001524;
+    z-index: 300;
+}
 .instructions-1 {
     display: block;
     position: absolute;

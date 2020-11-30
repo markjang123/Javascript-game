@@ -14,7 +14,7 @@ class Bullet extends MoveableObject {
         this.color = "white"
         this.isMoving = true
         this.distance = 0
-        this.maxDistance = 800
+        this.maxDistance = 400
         this.x = x
         this.y = y
         this.vel = 2
@@ -54,11 +54,9 @@ class Bullet extends MoveableObject {
         const animateId = requestAnimationFrame(() => {
             if (!this.isMoving || this.distance >= this.maxDistance){
                 const bulletIndex = BULLETS.indexOf(this);
-                if (bulletIndex > -1) {
                     BULLETS.splice(bulletIndex, 1);
                     GAME[0].draw()
                     cancelAnimationFrame(animateId)
-                } 
             } else {
                 this.move(ctx, dir)
                 this.distance += this.vel
@@ -78,10 +76,27 @@ class Bullet extends MoveableObject {
         const y = Math.abs(y1 - y2)
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
     }
+    checkOutboundsTop(){
+        return this.y < 0
+    }
+    checkOutboundsBottom(){
+        const canvas = document.getElementById("game-canvas")
+        return this.y > canvas.height 
+    }
+    checkOutboundsRight(){
+        const canvas = document.getElementById("game-canvas")
+        return this.x > canvas.width
+    }
+    checkOutboundsLeft(){
+        return this.x < 20
+    }
     draw(ctx){
         ctx.beginPath();
-        ctx.fillStyle = this.color;
         ctx.arc(this.x, this.y, 10, 0, 2 * Math.PI);
+        let gradient = ctx.createRadialGradient(this.x, this.y, 5, this.x, this.y, 8);
+        gradient.addColorStop(0, "fuchsia");
+        gradient.addColorStop(1, "purple");
+        ctx.fillStyle = gradient;
         ctx.fill();
         if (this.checkHitPlayer(PLAYER[0])){
             // PLAYER[0].blink(ctx)
