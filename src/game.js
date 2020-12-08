@@ -41,7 +41,7 @@ class Game {
     bindKeyHandlers() {
       document.addEventListener("keydown", e => {
         if (e.key === "v"){
-          this.enemies.forEach(enemy => enemy.fireBullet())
+          this.enemies.forEach(enemy => enemy.fire())
         }
       })
     }
@@ -81,6 +81,9 @@ class Game {
         gameCanvas.style.filter = "blur(3px)"
         gameCanvas.style.opacity = "0.8"
         this.players[0].invincible = true
+        for(let i = this.enemies.length - 1; i >= 0; i--){
+          this.enemies[i].remove()
+        }
         return
       }
       for(let i = this.enemies.length - 1; i >= 0; i--){

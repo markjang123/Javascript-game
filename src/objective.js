@@ -9,20 +9,20 @@ class Objective extends MovingObject {
       options.color = options.color || "#252525";
       options.game = options.game
       super(options)
-        this.isRemovable = false;
-        this.hitPoints = 20
-        this.radius = 25
-        this.fireInterval
+      this.isRemovable = false;
+      this.hitPoints = 20
+      this.radius = 25
+      this.fireInterval
+      this.originalColor = this.color
       //   this.startFiring()
     }
     
     startFiring(){
-        this.fireInterval = setInterval(() => this.fireBullet(), 500)
+        this.fireInterval = setInterval(() => this.fire(), 500)
     }
     blink(){
-        let originalColor = this.color
         this.color = "white"
-        setTimeout(() => this.color = originalColor, 100)
+        setTimeout(() => this.color = this.originalColor, 100)
     }
     remove() {
         let pos = this.pos
@@ -44,7 +44,7 @@ class Objective extends MovingObject {
         }
         return false;
       };
-      fireBullet() {
+      fire() {
        
       
         const relVel = Util.scale(

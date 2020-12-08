@@ -17,6 +17,7 @@ class Enemy extends MovingObject{
       this.trackInterval
       this.toggleTrackingInterval
       this.fireAngle = -3.14
+      this.originalColor = this.color
       this.startFiring()
       if (this.type === "standard"){
         this.toggleTracking()
@@ -49,19 +50,19 @@ class Enemy extends MovingObject{
             let pattern
             if (this.type === "turret"){
               pattern = ["diagonal-surround", "surround"][Math.floor(Math.random() * 2)]
-              this.fireBullet(null, pattern)
+              this.fire(null, pattern)
             } else if (this.type === "standard") {
               pattern = "spray"  
               let angle = Math.atan2(this.game.players[0].pos[1] - this.pos[1], (this.game.players[0].pos[0] + 485) - (this.pos[0] + 485))
               let velocity = [Math.cos(angle), Math.sin(angle)]
-              this.fireBullet(velocity, pattern)   
+              this.fire(velocity, pattern)   
             } else if (this.type = "spinning") {
               pattern = "spinning"
               let angle = this.fireAngle
               let velocity = [Math.cos(angle), Math.sin(angle)]
               this.fireAngle += 0.25
               if (this.fireAngle > 3.14) this.fireAngle = -3.14
-              this.fireBullet(velocity, pattern) 
+              this.fire(velocity, pattern) 
             }
         }, fireRate)
     }
@@ -74,9 +75,8 @@ class Enemy extends MovingObject{
         }, 500)
     }
     blink(){
-      let originalColor = this.color
-      this.color = "white"
-      setTimeout(() => this.color = originalColor, 100)
+        this.color = "white"
+        setTimeout(() => this.color = this.originalColor, 100)
     }
     remove() {
         let pos = this.pos
@@ -99,7 +99,7 @@ class Enemy extends MovingObject{
         } 
         return false;
       };
-    fireBullet(velocity, pattern) {
+    fire(velocity, pattern) {
       switch(pattern){
         case "spray":
         const relVel = Util.scale(

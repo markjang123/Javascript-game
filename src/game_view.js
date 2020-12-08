@@ -65,7 +65,7 @@ class GameView {
         player.vel = [5, 0]
         break;
       case "v":
-        game.enemies.forEach(enemy => enemy.fireBullet())
+        game.enemies.forEach(enemy => enemy.fire())
         break;
       default:
         break;
@@ -78,7 +78,7 @@ class GameView {
     // document.addEventListener("click", (e) => {
     //   let angle = Math.atan2(e.clientY - player.pos[1], e.clientX - player.pos[0])
     //   let velocity = [Math.cos(angle), Math.sin(angle)]
-    //   player.fireBullet(velocity)
+    //   player.fire(velocity)
     // })
     let handleMouseMove = function(e){
       clientX = e.clientX
@@ -89,7 +89,7 @@ class GameView {
       fireInterval = setInterval(() => {
       let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
       let velocity = [Math.cos(angle), Math.sin(angle)]
-        player.fireBullet(velocity)
+        player.fire(velocity)
       }, 150);
     })
     // document.addEventListener("keydown", (e) => {
@@ -99,7 +99,7 @@ class GameView {
     //     fireInterval = setInterval(() => {
     //     let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
     //     let velocity = [Math.cos(angle), Math.sin(angle)]
-    //       player.fireBullet(velocity)
+    //       player.fire(velocity)
     //     }, 150);
     //   }
     // })

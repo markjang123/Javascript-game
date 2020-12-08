@@ -12,14 +12,14 @@ class Player extends MovingObject {
         this.isRemovable = false;
         this.hitPoints = 10
         this.color = "white"
+        this.originalColor = this.color
         this.blink = this.blink.bind(this)
         this.invincible = false
 
     }
     blink(){
-      let originalColor = this.color
       this.color = "red"
-      setTimeout(() => this.color = originalColor, 100)
+      setTimeout(() => this.color = this.originalColor, 100)
     }
     remove() {
       let pos = this.pos
@@ -33,7 +33,7 @@ class Player extends MovingObject {
         this.game.addParticles(pos)
       }
     }
-    fireBullet(velocity) {
+    fire(velocity) {
       const relVel = Util.scale(
         Util.dir(velocity),
         15
