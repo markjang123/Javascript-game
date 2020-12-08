@@ -1,139 +1,162 @@
-import MoveableObject from './movable_object'
-import {GAME} from './index'
-import {ENEMIES, LASERS, PLAYER, OTHER, IMMOVABLE, BULLETS, CTX} from './game'
-import Bullet from './bullet'
-export const INTERVALS = []
-class Enemy extends MoveableObject {
-    constructor(x, y, height, width, color, vel){
-        super(x, y, height, width, color, vel)
-        this.x = x
-        this.y = y
-        this.height = height
-        this.width = width
-        this.color= "red"
-        this.vel = this.getRandomInRange(20, 40)
-        this.RIGHT = "RIGHT"
-        this.LEFT = "LEFT"
-        this.UP = "UP"
-        this.DOWN = "DOWN"
-        this.canFire = true
-        const enemyShootInterval = setInterval(() => this.shoot(), 500)
-        INTERVALS.push(enemyShootInterval)
-        const enemyMoveInterval = setInterval(() => this.move(CTX[0], this.dir), 250)
-        INTERVALS.push(enemyMoveInterval)
-        this.dir = "LEFT"
-        this.bindKeys()
-    }
-     getRandomInRange(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min)
+import MovingObject from "./moving_object";
+import * as Util from "./util";
+import Bullet from "./bullet";
+import Laser from "./laser";
+
+class Enemy extends MovingObject{
+    constructor(options) {
+      options.vel = options.vel || [1, 0];
+      options.color = options.color || "red";
+      options.game = options.game
+      super(options)
+      this.isRemovable = false;
+      this.hitPoints = 10
+      this.isTracking = false
+      this.fireInterval
+      this.trackInterval
+      this.toggleTrackingInterval
+      this.startFiring()
+      if (this.type === "standard"){
+        this.toggleTracking()
       }
-    shoot(){
-        if (this.canFire){
-            // const b = new Bullet(this.x, this.y)
-            // BULLETS.push(b)
-            // b.draw(this.ctx)
-            // requestAnimationFrame(() => b.shoot(this.ctx, "DOWN"))
-            // const a = new Bullet(this.x + this.width, this.y)
-            // BULLETS.push(a)
-            // a.draw(this.ctx)
-            // requestAnimationFrame(() => a.shoot(this.ctx, "DOWN"))
-            const c = new Bullet(this.x, this.y + this.height)
-            BULLETS.push(c)
-            c.draw(CTX[0])
-            requestAnimationFrame(() => c.shoot(CTX[0], "DOWN"))
-            const d = new Bullet(this.x + this.width, this.y + this.height)
-            BULLETS.push(d)
-            d.draw(CTX[0])
-            requestAnimationFrame(() => d.shoot(CTX[0], "DOWN"))
+    }
+    toggleTracking(){
+      this.toggleTrackingInterval = setInterval(() => {
+        if (!this.isTracking) {
+          this.startTracking()
+        } else {
+          this.isTracking = false
+          clearInterval(this.trackInterval)
         }
+      }, 2500)
     }
-    rotate(ctx){
-        ctx.save();
-        ctx.translate(400, 400);
-        ctx.rotate(20 * Math.PI / 180);
-        this.draw(ctx)
-        // ctx.translate(-(20/2), -(30/2));
-        ctx.restore
+    startFiring(){
+        let fireRate
+        if (this.type === "standard"){
+          fireRate = 250
+        } else if (this.type === "turret"){
+          fireRate = 500
+        }
+        this.fireInterval = setInterval(() => {
+            let pattern
+            this.type === "turret" ? pattern = "surround" : pattern = "spray"
+            let angle = Math.atan2(this.game.players[0].pos[1] - this.pos[1], (this.game.players[0].pos[0] + 485) - (this.pos[0] + 485))
+            let velocity = [Math.cos(angle), Math.sin(angle)]
+            this.fireBullet(velocity, pattern)   
+        }, fireRate)
     }
-    // checkCollision(object){
-    //     let top = this.y
-    //     let bottom = this.y + this.height
-    //     let left = this.x
-    //     let right = this.x + this.width
-    //     if (top > object.y + object.height || right < object.x || left > object.x + object.width || bottom < object.y){
-    //         return false
-    //     }
-    //     return true
-    // }
-    bindKeys(){
-        document.addEventListener("keydown", e => {
-            if (e.key === "f"){
-                this.shoot()
+    startTracking(){
+        this.isTracking = true
+        this.trackInterval = setInterval(() => {
+            let angle = Math.atan2(this.game.players[0].pos[1] - this.pos[1], (this.game.players[0].pos[0] + 485) - (this.pos[0] + 485))
+            let velocity = [Math.cos(angle), Math.sin(angle)]
+            this.vel = velocity
+        }, 500)
+    }
+    blink(){
+      let originalColor = this.color
+      this.color = "white"
+      setTimeout(() => this.color = originalColor, 100)
+    }
+    remove() {
+        this.game.remove(this);
+        clearInterval(this.fireInterval)
+        clearInterval(this.trackInterval)
+        clearInterval(this.toggleTrackingInterval)
+      };
+    collideWith(otherObject) {
+        if (otherObject instanceof Laser) {
+            otherObject.remove()
+            this.hitPoints -= 1
+            this.blink()
+            if (this.hitPoints <= 0) {
+                this.remove();
+                otherObject.remove();
+                return true;
             }
-        })
+        } 
+        return false;
+      };
+    fireBullet(velocity, pattern) {
+      switch(pattern){
+        case "spray":
+        const relVel = Util.scale(
+          Util.dir(velocity),
+          2
+        );
+      
+        const bulletVel = [
+          relVel[0] + this.vel[0], relVel[1] + this.vel[1]
+        ];
+      
+        const bullet = new Bullet({
+          // pos: [this.pos[0] + this.radius, this.pos[1]],
+          pos: this.pos,
+          vel: bulletVel,
+          color: "purple",
+          game: this.game
+        });  
+        this.game.add(bullet);
+        break;
+        case "surround":
+          const bullet1 = new Bullet({
+            pos: this.pos,
+            vel: [5, 0],
+            color: "#780000",
+            invincible: true,
+            game: this.game
+          });  
+          const bullet2 = new Bullet({
+            pos: this.pos,
+            vel: [-5, 0],
+            color: "#780000",
+            invincible: true,
+            game: this.game
+          });  
+          const bullet3 = new Bullet({
+            pos: this.pos,
+            vel: [0, 5],
+            color: "#780000",
+            invincible: true,
+            game: this.game
+          });  
+          const bullet4 = new Bullet({
+            pos: this.pos,
+            vel: [0, -5],
+            color: "#780000",
+            invincible: true,
+            game: this.game
+          });  
+          this.game.add(bullet1);
+          this.game.add(bullet2);
+          this.game.add(bullet3);
+          this.game.add(bullet4);
+          //do stuff
+        break;
+      }
     }
-    move(ctx, direction){
-        debugger
-        switch(direction){
-            case "RIGHT":
-                debugger
-                this.x = this.x + this.vel
-                if (this.checkOutboundsRight()){
-                    this.x = this.x - this.vel
-                    this.dir = "LEFT"
-                }
-                // ENEMIES.forEach(enemy => {
-                //     if (this.checkCollision(enemy)){
-                //         this.x = this.x - this.vel
-                //     } 
-                // })
-                GAME[0].draw()
-                break;
-            case "LEFT":
-                debugger
-                this.x = this.x - this.vel
-                if (this.checkOutboundsLeft()){
-                    this.x = this.x + this.vel
-                    this.dir = "RIGHT"
-                }
-                // ENEMIES.forEach(enemy => {
-                //     if (this.checkCollision(enemy)){
-                //         this.x = this.x + this.vel
-                //     } 
-                // })
-                GAME[0].draw()
-                break;
-            case "UP":
-                debugger
-                this.y = this.y - this.vel
-                if (this.checkOutboundsTop()){
-                    this.y = this.y + this.vel
-                }
-                // ENEMIES.forEach(enemy => {
-                //     if (this.checkCollision(enemy)){
-                //         this.y = this.y + this.vel
-                //     } 
-                // })
-                GAME[0].draw()
-                break;
-            case "DOWN":
-                debugger
-                this.y = this.y + this.vel
-                if (this.checkOutboundsBottom()){
-                    this.y = this.y - this.vel
-                }
-                // ENEMIES.forEach(enemy => {
-                //     if (this.checkCollision(enemy)){
-                //         this.y = this.y - this.vel
-                //     } 
-                // })
-                GAME[0].draw()
-                break;
+
+    move(timeDelta) {
+      const velocityScale = timeDelta / (1000/60),
+          offsetX = this.vel[0] * velocityScale,
+          offsetY = this.vel[1] * velocityScale;
+    
+      this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
+    
+      let angle = Math.atan2(this.game.players[0].pos[1] - this.pos[1], (this.game.players[0].pos[0] + 485) - (this.pos[0] + 485))
+      let velocity = [Math.cos(angle), Math.sin(angle)]
+      if (this.game.isOutOfBounds(this.pos)) {
+        if (this.isRemovable) {
+          this.remove();
+        } else {
+          this.vel = velocity
         }
-    }
-   
+      }
+    };
 }
 
-export default Enemy
+export default Enemy;
+
+
+
+
