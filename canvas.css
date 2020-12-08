@@ -251,8 +251,8 @@
     outline: none;
 }
 #mute-button {
+    display: none;
     -webkit-user-select: none;
-    display: inline-block;
     height: 50;
     width: 100;
     border-radius: 50px;

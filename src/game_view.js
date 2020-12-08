@@ -89,15 +89,33 @@ class GameView {
       fireInterval = setInterval(() => {
       let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
       let velocity = [Math.cos(angle), Math.sin(angle)]
-      console.log(angle)
         player.fireBullet(velocity)
       }, 150);
     })
+    // document.addEventListener("keydown", (e) => {
+    //   if (e.code === "Space") {
+    //     e.preventDefault()
+    //     document.addEventListener("mousemove", handleMouseMove)
+    //     fireInterval = setInterval(() => {
+    //     let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
+    //     let velocity = [Math.cos(angle), Math.sin(angle)]
+    //       player.fireBullet(velocity)
+    //     }, 150);
+    //   }
+    // })
     document.addEventListener("mouseup", () => {
       clearInterval(fireInterval)
       document.removeEventListener("mousemove", handleMouseMove)
     })
-    document.addEventListener("keyup", () => player.vel = [0, 0])
+    document.addEventListener("keyup", (e) => {
+      // console.log(e)
+      // if (e.code === "Space"){
+      //   clearInterval(fireInterval)
+      //   document.removeEventListener("mousemove", handleMouseMove)
+      // } else {
+        player.vel = [0, 0]
+      // }
+    })
     };
     start() {
       this.bindKeyHandlers();

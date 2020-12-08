@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   startButton.addEventListener("click", () => {
     let audio = document.getElementById("audio")
     audio.play()
+    let muteButton = document.getElementById("mute-button")
+    muteButton.style.display = "inline-block"
     gameCanvas.style.display = "inline-block"
     let startScreen = document.querySelector(".start-screen")
     startScreen.style.display = "none"
