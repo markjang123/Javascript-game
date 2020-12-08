@@ -1,11 +1,10 @@
-#game-canvas {
-    background-color: #001524;
+#game-canvas{
+    /* background-color: #001524; */
     z-index: 2;
-    margin-left: auto;
-    margin-right: auto;
     position: absolute;
     left: 25%;
     right: 25%;
+    /* display: none; */
 }
 #game-over-canvas {
     background-color:red;
@@ -14,59 +13,179 @@
 /* .hidden {
     display: none;
 } */
-.game-over-container {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 180px;
+#next-level-button {
+    -webkit-user-select: none;
+    display: inline-block;
+    height: 100px;
+    width: 200px;
+    border-radius: 50px;
+    border: 5px solid whitesmoke;
+    background-color: transparent;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto', sans-serif;
     font-weight: bolder;
+    font-size: 30px;
+    cursor: pointer;
     position: absolute;
-    left: 25%;
-    right: 25%;
+    top: 55%;
+    left: 40%;
+    outline: none;
+}
+.start-over-button {
+    -webkit-user-select: none;
+    display: inline-block;
+    height: 100px;
+    width: 200px;
+    border-radius: 50px;
+    border: 5px solid white;
+    background-color: transparent;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 55%;
+    left: 40%;
+    outline: none;
+}
+.background{
+    /* background: linear-gradient(180deg, #f829ab 25%, #f42977 75%, #f41f5f 100%); */
+    background: linear-gradient(180deg, #bc2ce0 25%, #6723ba 75%, #441a9b 100%);
     height: 950px;
+    width: 1920px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+.instructions {
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    color: white;
+    font-size: 35px;
+    position: absolute;
+    left: 1%;
+    top: 35%;
+    line-height: 40px;
+    text-align: center;
+}
+.instructions-2 {
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    color: white;
+    font-size: 35px;
+    position: absolute;
+    left: 1%;
+    top: 60%;
+    line-height: 40px;
+    text-align: center;
+}
+.title {
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    color: white;
+    font-size: 75px;
+    position: absolute;
+    left: 7%;
+    top: 13%;
+    line-height: 40px;
+    text-align: center;
+}
+.level{
+    display: inline-block;
+    height: 100px;
     width: 950px;
-    background-color: #001524;
-    z-index: 200;
+    color: white;
+    padding: 0;
+    margin: 0;
+    font-size: 90px;
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    position: absolute;
+    left: 0;
+    top: 40%;
+    text-align: center;
 }
 .level-complete {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 180px;
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bolder;
-    position: absolute;
-    left: 25%;
-    right: 25%;
-    height: 950px;
-    width: 950px;
-    background-color: #001524;
-    z-index: 300;
+    font-size: 75px;
+    /* left: 50%;
+    top: 3%;  */
+    background-color: white;
 }
-.instructions-1 {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 60px;
+.cta {
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bolder;
-    height: 950px;
-    width: 950px;
-    background-color: #001524;
-    z-index: 202;
-    left: 25%;
-    right: 25%;
-}
-
-.game-over{
+    font-size: 30px;
+    position: absolute;
+    right: 6.5%;
+    top: 35%;
+    line-height: 40px;
     text-align: center;
-    margin: auto;
-    /* border: 1px solid white; */
+}
+.linkedin-icon {
+    -webkit-user-select: none;
+    position: absolute;
+    right: 12%;
+    top: 40%;
+}
+.github-icon {
+    -webkit-user-select: none;
+    position: absolute;
+    right: 6%;
+    top: 40%;
+}
+.creator {
+    -webkit-user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    left: 8.5%;
+    top: 20%;
+    text-align: center;
+}
+.next-level {
+    display: none;
+    z-index: 200;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    background-color: transparent;
+    height: 950px;
+    width: 950px;
+    /* opacity: 0.1; */
+}
+.victory-screen {
+    display: none;
+    z-index: 200;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    background-color: transparent;
+    height: 950px;
+    width: 950px;
+    /* opacity: 0.1; */
+}
+.game-over {
+    display: none;
+    z-index: 200;
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    background-color: transparent;
+    height: 950px;
+    width: 950px;
+    /* opacity: 0.1; */
 }

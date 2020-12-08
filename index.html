@@ -1,35 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<html>
+  <head>
+    <title>VIRUS</title>
+    <link rel="icon" type="image/png" href="./src/images/android-chrome-192x192.png">
     <link rel="stylesheet" href="./reset.css" />
     <link rel="stylesheet" href="canvas.css" />
-    <script src="./dist/main.js"></script>
-</head>
-<body>
-    <canvas id="game-canvas" height="950" width="950"></canvas>
-    <div class="game-over-container">
-        <div class="game-over">
-            GAME OVER
-        </div>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="background">
+      <div class="next-level">
+        <div class="level">LEVEL COMPLETE</div>
+        <button id="next-level-button">next level</button>
+      </div>
+      <div class="game-over">
+        <div class="level">GAME OVER</div>
+        <button class="start-over-button">start over</button>
+      </div>
+      <div class="victory-screen">
+        <div class="level">YOU WIN!</div>
+        <button class="start-over-button">start over</button>
+      </div>
+      <p class="title">VIRUS</p>
+      <p class="creator">by: Mark Jang</p>
+      <p class="instructions">
+        USE WASD TO MOVE <br>
+        HOLD LEFT MOUSE TO FIRE <br>
+        MOVE MOUSE TO AIM
+      </p>
+      <p class="instructions-2">
+        YOUR MISSION: <br>
+        DESTROY THE GRAY NODE <br>
+        DONT GET HIT <br>
+      </p>
+      <canvas id="game-canvas" height="950" width="950"></canvas>
+      <p class="cta">Connect with me!</p>
+      <a target="_blank" class="linkedin-icon" href="https://linkedin.com/in/mark-jang-b89b5a1b5">
+        <img src="https://img.icons8.com/nolan/128/linkedin.png"/>
+      </a>
+      <a target="_blank" class="github-icon" href="https://github.com/markjang123">
+        <img src="https://img.icons8.com/nolan/128/github.png"/>
+      </a>
     </div>
-    <div class="level-complete">
-        <div class="game-over">
-            LEVEL COMPLETE!
-        </div>
-    </div>
-    <div class="instructions-1">
-        <div class="game-over">
-            Use WASD to move and click to shoot <br>
-            Destroy the gray objective to complete the level <br>
-            If you get hit too many times you will die! <br>
-            <br>
-            Press 'Space' to begin!
-        </div>
-    </div>
-    
-    
-</body>
+    <script type="application/javascript" src="./dist/main.js"></script>
+  </body>
 </html>
+
+
+
+
+
+
+
+
