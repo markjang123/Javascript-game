@@ -25,7 +25,9 @@ class Objective extends MovingObject {
         setTimeout(() => this.color = originalColor, 100)
     }
     remove() {
+        let pos = this.pos
         this.game.remove(this);
+        this.explode(pos, 50)
         // clearInterval(this.fireInterval)
       };
     collideWith(otherObject) {
@@ -36,7 +38,7 @@ class Objective extends MovingObject {
             if (this.hitPoints <= 0) {
                 this.remove();
                 otherObject.remove();
-                this.game.victory()
+                setTimeout(() => this.game.victory(), 300)
                 return true;
             }
         }
@@ -70,6 +72,12 @@ class Objective extends MovingObject {
         this.game.add(asteroid);
         this.game.add(asteroid2);
       };
+      explode(pos, size){
+        debugger
+        for(let i = 1; i <= size; i++){
+          this.game.addParticles(pos)
+        }
+      }
       move(timeDelta) {
         const velocityScale = timeDelta / (1000 / 60),
             offsetX = this.vel[0] * velocityScale,

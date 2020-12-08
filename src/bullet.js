@@ -18,6 +18,7 @@ class Bullet extends MovingObject{
         if (otherObject.hitPoints <= 0){
           otherObject.remove()
           this.game.gameOver()
+          
         }
         return true;
       } else if (otherObject instanceof Laser) {

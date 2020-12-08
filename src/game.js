@@ -3,6 +3,7 @@ import Bullet from "./bullet";
 import Player from "./player";
 import Objective from "./objective"
 import Laser from "./laser"
+import SquareParticle from './square_particle'
 import {LEVELS} from './game_view'
 
 const BG_COLOR = "#000026";
@@ -13,8 +14,9 @@ class Game {
         this.lasers = [];
         this.bullets = [];
         this.players = [];
-        this.enemies = []
-        this.objectives = []
+        this.enemies = [];
+        this.objectives = [];
+        this.particles = [];
         this.addEnemies(enemies);
         this.addObjectives([425, 0]);
         this.level = level
@@ -30,6 +32,8 @@ class Game {
         this.enemies.push(object)
       } else if (object instanceof Objective) {
         this.objectives.push(object)
+      } else if (object instanceof SquareParticle) {
+        this.particles.push(object)
       } else {
         throw new Error("unknown type of object");
       }
@@ -44,11 +48,14 @@ class Game {
     addObjectives(pos) {
         this.add(new Objective({ game: this, pos: pos }));
     };
+    addParticles(pos) {
+        this.add(new SquareParticle({ game: this, pos: pos }));
+    };
     addEnemies(enemies) {
-      let turretPos = [[100, 100], [300, 400], [700, 700], [200, 800], [500, 350]]
+      let turretPos = [[100, 100], [300, 400], [700, 700], [200, 800], [500, 350], [250, 100], [450, 400], [400, 425]]
       for (let i = 0; i < enemies.length; i++) {
         let enemy = enemies[i]
-        if (enemy.type === "turret"){
+        if (enemy.type === "turret" || enemy.type === "spinning"){
           let sampleIdx = Math.floor(Math.random() * turretPos.length)
           enemy["pos"] = turretPos[sampleIdx]
           turretPos.splice(sampleIdx, 1)
@@ -92,7 +99,7 @@ class Game {
     
     addPlayer() {
       const player = new Player({
-        pos: [400, 400],
+        pos: [400, 900],
         game: this
       
       });
@@ -102,7 +109,7 @@ class Game {
       return player;
     };
     allObjects() {
-      return [].concat(this.players, this.lasers, this.bullets, this.enemies, this.objectives);
+      return [].concat(this.players, this.lasers, this.bullets, this.enemies, this.objectives, this.particles);
     };
     
     checkCollisions() {
@@ -166,6 +173,8 @@ class Game {
         this.enemies.splice(this.enemies.indexOf(object), 1)
       } else if (object instanceof Objective) {
         this.objectives.splice(this.objectives.indexOf(object), 1)
+      } else if (object instanceof SquareParticle) {
+        this.particles.splice(this.particles.indexOf(object), 1)
       } else {
         throw new Error("unknown type of object");
       }

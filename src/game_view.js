@@ -8,6 +8,12 @@ const ENEMY_TYPES = {
     vel: [1, 0],
     color: "red"
   },
+  spinning: {
+    type: "spinning",
+    radius: 25,
+    vel: [1, 0],
+    color: "red"
+  },
   turret: {
     type: "turret",
     radius: 15,
@@ -15,18 +21,18 @@ const ENEMY_TYPES = {
     color: "gray"
   }
 }
-const {standard, turret} = ENEMY_TYPES
+const {standard, turret, spinning} = ENEMY_TYPES
 export const LEVELS = {
   1: {
     enemies: [standard, standard, standard],
     objective: {pos: [425, 0]}
   },
   2: {
-    enemies: [standard, turret, standard, turret],
-    objective: {pos: [400, 400]}
+    enemies: [standard, turret, standard, spinning],
+    objective: {pos: [800, 150]}
   }, 
   3: {
-    enemies: [standard, turret, standard, turret, turret, turret],
+    enemies: [standard, turret, standard, turret, spinning, spinning],
     objective: {pos: [50, 425]}
   }
 }
@@ -83,6 +89,7 @@ class GameView {
       fireInterval = setInterval(() => {
       let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
       let velocity = [Math.cos(angle), Math.sin(angle)]
+      console.log(angle)
         player.fireBullet(velocity)
       }, 150);
     })

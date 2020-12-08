@@ -5,17 +5,32 @@ export const GAMEVIEWS = []
 const gameCanvas = document.getElementById("game-canvas");
 const ctx = gameCanvas.getContext("2d");
 document.addEventListener("DOMContentLoaded", function () {
-  const game = new Game([{
-    type: "standard",
-    radius: 25,
-    vel: [1, 0],
-    color: "red"
-  }], 1);
-  GAMES.push(game)
-  const gameView = new GameView(GAMES[0], ctx)
-  GAMEVIEWS.push(gameView)
-  gameView.start()
+  
+  let startButton = document.querySelector(".start-game-button")
+  startButton.addEventListener("click", () => {
+    let audio = document.getElementById("audio")
+    audio.play()
+    gameCanvas.style.display = "inline-block"
+    let startScreen = document.querySelector(".start-screen")
+    startScreen.style.display = "none"
+    const game = new Game([{
+      type: "spinning",
+      radius: 25,
+      vel: [1, 0],
+      color: "red"
+    }], 1);
+    GAMES.push(game)
+    const gameView = new GameView(GAMES[0], ctx)
+    GAMEVIEWS.push(gameView)
+    gameView.start()
+  })
 });
+let muteButton = document.getElementById("mute-button")
+muteButton.addEventListener("click", () => {
+  let audio = document.getElementById("audio")
+  audio.muted = !audio.muted
+  audio.muted ? muteButton.innerText = "Unmute" : muteButton.innerText = "Mute"
+})
 let nextLevelButton = document.querySelector("#next-level-button")
 nextLevelButton.addEventListener("click", () => {
   // canvasEl.style.display = "inline-block"

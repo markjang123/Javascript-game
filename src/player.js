@@ -21,6 +21,18 @@ class Player extends MovingObject {
       this.color = "red"
       setTimeout(() => this.color = originalColor, 100)
     }
+    remove() {
+      let pos = this.pos
+      this.game.remove(this);
+      this.explode(pos, 50)
+      // clearInterval(this.fireInterval)
+    };
+    explode(pos, size){
+      debugger
+      for(let i = 1; i <= size; i++){
+        this.game.addParticles(pos)
+      }
+    }
     fireBullet(velocity) {
       const relVel = Util.scale(
         Util.dir(velocity),
