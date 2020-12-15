@@ -32,7 +32,7 @@ class Objective extends MovingObject {
       ctx.shadowColor = "red";
       ctx.shadowBlur = 10;
       let objective = new Image()
-      objective.src = "https://opengameart.org/sites/default/files/ships_saucer_0.png"
+      objective.src = "./src/images/ships_saucer.png"
       ctx.drawImage(objective, this.pose[0], this.pose[1], 94, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
       this.nextFrameCounter += 1
       if (this.nextFrameCounter > 25){
