@@ -15,11 +15,21 @@ class Player extends MovingObject {
         this.originalColor = this.color
         this.blink = this.blink.bind(this)
         this.invincible = false
+        this.pose = [12, 50]
+        // this.pose = [577, 50]
+        this.defaultPose = [12, 50]
 
     }
     blink(){
-      this.color = "red"
-      setTimeout(() => this.color = this.originalColor, 100)
+      this.pose = [577, 50]
+      // this.color = "red"
+      setTimeout(() => this.pose = this.defaultPose, 100)
+    }
+    draw(ctx){
+      // ctx.drawImage(img, srcX, srcY, srcW, srcH, ctxX, ctxY, ctxW, ctxH)
+      let player = new Image()
+      player.src = "https://opengameart.org/sites/default/files/ships_saucer_0.png"
+      ctx.drawImage(player, this.pose[0], this.pose[1], 92, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
     }
     remove() {
       let pos = this.pos

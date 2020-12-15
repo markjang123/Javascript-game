@@ -4,17 +4,42 @@ export const GAMES = []
 export const GAMEVIEWS = []
 const gameCanvas = document.getElementById("game-canvas");
 const ctx = gameCanvas.getContext("2d");
+
+const showGameCanvas = () => {
+  gameCanvas.style.display = "inline-block"
+  // let startScreen = document.querySelector(".start-screen")
+  // gameCanvas.height = parseFloat(startScreen.style.height) * 1.2
+  // gameCanvas.width = parseFloat(startScreen.style.width) * 1.2
+  gameCanvas.style.width = `${window.innerWidth / 2}px`
+  gameCanvas.style.height = `${window.innerWidth / 2}px`
+}
 document.addEventListener("DOMContentLoaded", function () {
-  
+  let startScreen = document.querySelector(".start-screen")
+  startScreen.style.height = `${window.innerWidth / 2}px`
+  startScreen.style.width = `${window.innerWidth / 2}px`
+
+  let leftColumn = document.querySelector(".left-column")
+  leftColumn.style.height = `${window.innerWidth / 2}px`
+  leftColumn.style.width = `${window.innerWidth / 4}px`
+
+  let rightColumn = document.querySelector(".right-column")
+  rightColumn.style.height = `${window.innerWidth / 2}px`
+  rightColumn.style.width = `${window.innerWidth / 4}px`
+
+  let body = document.querySelector("body")
+  body.style.height = `${window.innerHeight}px`
+  body.style.width = `${window.innerWidth}px`
+
+
+
   let startButton = document.querySelector(".start-game-button")
   startButton.addEventListener("click", () => {
     let audio = document.getElementById("audio")
     audio.play()
     let muteButton = document.getElementById("mute-button")
     muteButton.style.display = "inline-block"
-    gameCanvas.style.display = "inline-block"
-    let startScreen = document.querySelector(".start-screen")
     startScreen.style.display = "none"
+    showGameCanvas()
     const game = new Game([{
       type: "spinning",
       radius: 25,
@@ -35,24 +60,12 @@ muteButton.addEventListener("click", () => {
 })
 let nextLevelButton = document.querySelector("#next-level-button")
 nextLevelButton.addEventListener("click", () => {
-  // canvasEl.style.display = "inline-block"
   let nextLevel = document.querySelector(".next-level")
   nextLevel.style.display = "none"
+  showGameCanvas()
   gameCanvas.style.filter = "none"
   gameCanvas.style.opacity = "1"
-  // const game2 = new Game(5, 2)
   GAMEVIEWS[0].nextLevel(GAMEVIEWS[0].level + 1)
-  // GAMEVIEWS[0].player = game2.addPlayer()
-  // cancelAnimationFrame(GAMEVIEWS[0].requestId)
-  // GAMEVIEWS[0].start()
-  // GAMES[0].startNextLevel()
-  // let canvas2 = document.querySelector("#game-canvas-2")
-  // canvas2.width = Game.DIM_X;
-  // canvas2.height = Game.DIM_Y;
-  // canvas2.style.display = "inline-block"
-  // const ctx2 = gameCanvas.getContext("2d")
-  // GAMES.push(game2)
-  // new GameView(game2, ctx2).start()
 })
 let startOverButtons = document.getElementsByClassName("start-over-button")
 for(let i = 0; i <= startOverButtons.length - 1; i++){

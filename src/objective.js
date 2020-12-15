@@ -11,23 +11,31 @@ class Objective extends MovingObject {
       super(options)
       this.isRemovable = false;
       this.hitPoints = 20
-      this.radius = 25
+      this.radius = 35
       this.fireInterval
       this.originalColor = this.color
       //   this.startFiring()
+      this.pose = [0, 500]
+      this.defaultPose = [0, 500]
     }
     
     startFiring(){
         this.fireInterval = setInterval(() => this.fire(), 500)
     }
     blink(){
-        this.color = "white"
-        setTimeout(() => this.color = this.originalColor, 100)
+        // this.color = "white"
+        this.pose = [480, 490]
+        setTimeout(() => this.pose = this.defaultPose, 500)
+    }
+    draw(ctx){
+      let objective = new Image()
+      objective.src = "https://opengameart.org/sites/default/files/ships_saucer_0.png"
+      ctx.drawImage(objective, this.pose[0], this.pose[1], 93, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
     }
     remove() {
         let pos = this.pos
         this.game.remove(this);
-        this.explode(pos, 50)
+        this.explode(pos, 100)
         // clearInterval(this.fireInterval)
       };
     collideWith(otherObject) {

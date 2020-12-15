@@ -7,8 +7,9 @@ import SquareParticle from './square_particle'
 import {LEVELS} from './game_view'
 
 const BG_COLOR = "#000026";
-const DIM_X = 950;
-const DIM_Y = 950;
+const gameCanvas = document.getElementById("game-canvas")
+const DIM_X = gameCanvas.width;
+const DIM_Y = gameCanvas.height;
 class Game {
     constructor(enemies, level){
         this.lasers = [];
@@ -17,8 +18,8 @@ class Game {
         this.enemies = [];
         this.objectives = [];
         this.particles = [];
-        this.addEnemies(enemies);
-        this.addObjectives([425, 0]);
+        // this.addEnemies(enemies);
+        this.addObjectives([DIM_X / 2, 30]);
         this.level = level
     }
     add(object) {
@@ -52,7 +53,7 @@ class Game {
         this.add(new SquareParticle({ game: this, pos: pos }));
     };
     addEnemies(enemies) {
-      let turretPos = [[100, 100], [300, 400], [700, 700], [200, 800], [500, 350], [250, 100], [450, 400], [400, 425]]
+      let turretPos = [[100, 100], [300, 400], [500, 500], [20, 400], [500, 350], [250, 100], [450, 400], [400, 425]]
       for (let i = 0; i < enemies.length; i++) {
         let enemy = enemies[i]
         if (enemy.type === "turret" || enemy.type === "spinning"){
@@ -68,18 +69,37 @@ class Game {
     };
     gameOver(){
       let gameOver = document.querySelector(".game-over")
-      gameOver.style.display = "inline-block"
+      gameOver.style.display = "flex"
+      gameOver.style.height = `${window.innerWidth / 2}px`
+      gameOver.style.width = `${window.innerWidth / 2}px`
       let gameCanvas = document.querySelector(`#game-canvas`)
+      gameCanvas.style.display = "none"
+      gameCanvas.style.filter = "blur(3px)"
+      gameCanvas.style.opacity = "0.8"
+    }
+    showVictoryScreen(){
+      let victoryScreen = document.querySelector(".victory-screen")
+      victoryScreen.style.height = `${window.innerWidth / 2}px`
+      victoryScreen.style.width = `${window.innerWidth / 2}px`
+      victoryScreen.style.display = "flex"
+      let gameCanvas = document.querySelector(`#game-canvas`)
+      gameCanvas.style.display = "none"
+      gameCanvas.style.filter = "blur(3px)"
+      gameCanvas.style.opacity = "0.8"
+    }
+    showNextLevelScreen(){
+      let nextLevel = document.querySelector(".next-level")
+      nextLevel.style.display = "flex"
+      nextLevel.style.height = `${window.innerWidth / 2}px`
+      nextLevel.style.width = `${window.innerWidth / 2}px`
+      let gameCanvas = document.querySelector(`#game-canvas`)
+      gameCanvas.style.display = "none"
       gameCanvas.style.filter = "blur(3px)"
       gameCanvas.style.opacity = "0.8"
     }
     victory(){
       if (this.level === Object.keys(LEVELS).length){
-        let victoryScreen = document.querySelector(".victory-screen")
-        victoryScreen.style.display = "inline-block"
-        let gameCanvas = document.querySelector(`#game-canvas`)
-        gameCanvas.style.filter = "blur(3px)"
-        gameCanvas.style.opacity = "0.8"
+        this.showVictoryScreen()
         this.players[0].invincible = true
         for(let i = this.enemies.length - 1; i >= 0; i--){
           this.enemies[i].remove()
@@ -90,19 +110,12 @@ class Game {
         this.enemies[i].remove()
       }
       this.players[0].invincible = true
-      // this.lasers.length = 0
-      // GAMES.splice(0, 1)
-      let nextLevel = document.querySelector(".next-level")
-      nextLevel.style.display = "inline-block"
-      let gameCanvas = document.querySelector(`#game-canvas`)
-      gameCanvas.style.filter = "blur(3px)"
-      gameCanvas.style.opacity = "0.8"
-      // gameCanvas.remove()
+      this.showNextLevelScreen()
     }
     
     addPlayer() {
       const player = new Player({
-        pos: [400, 900],
+        pos: [DIM_X / 2, DIM_Y - 50],
         game: this
       
       });
@@ -158,9 +171,9 @@ class Game {
       ];
     };
     randomHorizontalPosition() {
-      let verticalPos = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450]
+      let verticalPos = [0, 50, 100, 150, 200, 250, 300]
       return [
-        950 * Math.random(),
+        DIM_X * Math.random(),
         verticalPos[Math.floor(Math.random() * verticalPos.length)]
       ];
     };

@@ -1,18 +1,38 @@
 #game-canvas{
     /* background-color: #001524; */
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
     z-index: 2;
-    position: absolute;
-    left: 25%;
-    right: 25%;
     display: none;
+    /* image-rendering: pixelated; */
+    image-rendering: crisp-edges;
+    
 }
 #game-over-canvas {
     background-color:red;
     z-index: 1;
 }
-/* .hidden {
-    display: none;
-} */
+.left-column {
+    padding: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.right-column {
+    padding: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.next-level-button-wrapper {
+    text-align: center;
+    margin: 60px;
+}
 #next-level-button {
     -webkit-user-select: none;
     display: inline-block;
@@ -26,10 +46,11 @@
     font-weight: bolder;
     font-size: 35px;
     cursor: pointer;
-    position: absolute;
-    top: 55%;
-    left: 40%;
     outline: none;
+}
+.start-over-button-wrapper {
+    text-align: center;
+    margin: 60px;
 }
 .start-over-button {
     -webkit-user-select: none;
@@ -44,19 +65,16 @@
     font-weight: bolder;
     font-size: 35px;
     cursor: pointer;
-    position: absolute;
-    top: 55%;
-    left: 40%;
     outline: none;
 }
-.background{
-    /* background: linear-gradient(180deg, #f829ab 25%, #f42977 75%, #f41f5f 100%); */
+body{
     background: linear-gradient(180deg, #bc2ce0 25%, #6723ba 75%, #441a9b 100%);
-    height: 1080px;
-    width: 1920px;
-    display: inline-block;
-    margin: 0 auto;
-    position: relative;
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    margin: 0;
+    padding: 0;
+    
 }
 /* @media only screen and (min-width: 1921px) {
     .background{
@@ -76,9 +94,9 @@
     font-weight: lighter;
     color: white;
     font-size: 35px;
-    position: absolute;
-    left: 1%;
-    top: 35%;
+    /* position: absolute; */
+    /* left: 1%;
+    top: 35%; */
     line-height: 40px;
     text-align: center;
 }
@@ -88,9 +106,9 @@
     font-weight: lighter;
     color: white;
     font-size: 35px;
-    position: absolute;
-    left: 1%;
-    top: 60%;
+    /* position: absolute; */
+    /* left: 1%;
+    top: 60%; */
     line-height: 40px;
     text-align: center;
 }
@@ -100,16 +118,17 @@
     font-weight: lighter;
     color: white;
     font-size: 75px;
-    position: absolute;
+    margin-bottom: 25px;
+    /* position: absolute;
     left: 7%;
-    top: 13%;
+    top: 13%; */
     line-height: 40px;
     text-align: center;
 }
 .level{
     display: inline-block;
-    height: 100px;
-    width: 950px;
+    /* height: 100px;
+    width: 950px; */
     color: white;
     padding: 0;
     margin: 0;
@@ -117,9 +136,9 @@
     -webkit-user-select: none;
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
-    position: absolute;
+    /* position: absolute;
     left: 0;
-    top: 40%;
+    top: 40%; */
     text-align: center;
 }
 .level-complete {
@@ -138,23 +157,17 @@
     font-weight: lighter;
     color: white;
     font-size: 30px;
-    position: absolute;
-    right: 6.5%;
-    top: 35%;
     line-height: 40px;
+    text-align: center;
+}
+.profile-links {
     text-align: center;
 }
 .linkedin-icon {
     -webkit-user-select: none;
-    position: absolute;
-    right: 12%;
-    top: 40%;
 }
 .github-icon {
     -webkit-user-select: none;
-    position: absolute;
-    right: 6%;
-    top: 40%;
 }
 .creator {
     -webkit-user-select: none;
@@ -162,48 +175,44 @@
     font-weight: lighter;
     color: white;
     font-size: 25px;
-    position: absolute;
-    left: 8.5%;
-    top: 20%;
     text-align: center;
 }
 .next-level {
     display: none;
     z-index: 200;
-    position: absolute;
-    left: 25%;
-    right: 25%;
-    background-color: transparent;
-    height: 950px;
-    width: 950px;
-    /* opacity: 0.1; */
+    background: linear-gradient(180deg, #01134e 25%, #020935 75%, #000026 100%);
+    /* background-color: transparent; */
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+    justify-content: center;
 }
 .victory-screen {
+    position: relative;
+    background: linear-gradient(180deg, #01134e 25%, #020935 75%, #000026 100%);
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+    justify-content: center;
     display: none;
     z-index: 200;
-    position: absolute;
-    left: 25%;
-    right: 25%;
-    background-color: transparent;
-    height: 950px;
-    width: 950px;
+    /* background-color: transparent; */
+  
     /* opacity: 0.1; */
 }
 .start-screen {
-    display: inline-block;
     z-index: 200;
-    position: absolute;
-    left: 25%;
-    right: 25%;
+    position: relative;
     background: linear-gradient(180deg, #01134e 25%, #020935 75%, #000026 100%);
-    height: 950px;
-    width: 950px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     /* opacity: 0.1; */
 }
 .intro{
-    display: inline-block;
-    height: 100px;
-    width: 950px;
     color: white;
     padding: 0;
     margin: 0;
@@ -211,15 +220,9 @@
     -webkit-user-select: none;
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
-    position: absolute;
-    left: 0;
-    top: 25%;
     text-align: center;
 }
 .subtitle{
-    display: inline-block;
-    height: 100px;
-    width: 950px;
     color: white;
     padding: 0;
     margin: 0;
@@ -227,10 +230,11 @@
     -webkit-user-select: none;
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
-    position: absolute;
-    left: 0;
-    top: 38%;
     text-align: center;
+}
+.start-button-wrapper {
+    text-align: center;
+    margin: 60px;
 }
 .start-game-button {
     -webkit-user-select: none;
@@ -245,10 +249,10 @@
     font-weight: bolder;
     font-size: 40px;
     cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left: 40%;
     outline: none;
+}
+.mute-button-wrapper {
+    text-align: center;
 }
 #mute-button {
     display: none;
@@ -263,19 +267,23 @@
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
-    position: absolute;
-    top: 12%;
-    right: 10%;
     outline: none; 
 }
 .game-over {
+    z-index: 200;
+    position: relative;
+    background: linear-gradient(180deg, #01134e 25%, #020935 75%, #000026 100%);
+    margin-top: auto;
+    margin-bottom: auto;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+
+    /* display: none;
     z-index: 200;
     position: absolute;
     left: 25%;
     right: 25%;
     background-color: transparent;
-    height: 950px;
-    width: 950px;
     /* opacity: 0.1; */
 }

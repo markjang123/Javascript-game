@@ -29,7 +29,7 @@ export const LEVELS = {
   },
   2: {
     enemies: [standard, turret, standard, spinning],
-    objective: {pos: [800, 150]}
+    objective: {pos: [500, 150]}
   }, 
   3: {
     enemies: [standard, turret, standard, turret, spinning, spinning],
@@ -50,7 +50,7 @@ class GameView {
     document.addEventListener("keydown", (e) => {
     switch(e.key){
       case "g":
-        alert(game.bullets.map((bullets, idx) => idx + 1))
+        console.log(getXOffset(), getYoffset(), player.pos)
         break;
       case "w":
         player.vel = [0, -5]
@@ -63,9 +63,6 @@ class GameView {
         break;
       case "d":
         player.vel = [5, 0]
-        break;
-      case "v":
-        game.enemies.forEach(enemy => enemy.fire())
         break;
       default:
         break;
@@ -84,20 +81,33 @@ class GameView {
       clientX = e.clientX
       clientY = e.clientY
     }
+    let getXOffset = () => {
+      let leftColumn = document.querySelector(".left-column")
+      return leftColumn.offsetWidth
+    }
+    let getYoffset = () => {
+      let gameCanvas = document.querySelector("#game-canvas")
+      let style = window.getComputedStyle(gameCanvas);
+      let marginBottom = style.getPropertyValue('margin-bottom'); 
+      let split = marginBottom.split("px")
+      let value = parseFloat(split[0])
+      return value
+    }
+    
     document.addEventListener("mousedown", (e) => {
       document.addEventListener("mousemove", handleMouseMove)
       fireInterval = setInterval(() => {
-      let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
+      let angle = Math.atan2(clientY - (player.pos[1] + getYoffset()), clientX - (player.pos[0] + getXOffset()))
       let velocity = [Math.cos(angle), Math.sin(angle)]
         player.fire(velocity)
       }, 150);
     })
     // document.addEventListener("keydown", (e) => {
-    //   if (e.code === "Space") {
+    //   if (e.code === "Space"){
     //     e.preventDefault()
     //     document.addEventListener("mousemove", handleMouseMove)
     //     fireInterval = setInterval(() => {
-    //     let angle = Math.atan2(clientY - player.pos[1], clientX - (player.pos[0] + 485))
+    //     let angle = Math.atan2(clientY - (player.pos[1] + getYoffset()), clientX - (player.pos[0] + getXOffset() + 105))
     //     let velocity = [Math.cos(angle), Math.sin(angle)]
     //       player.fire(velocity)
     //     }, 150);
@@ -111,7 +121,7 @@ class GameView {
       // console.log(e)
       // if (e.code === "Space"){
       //   clearInterval(fireInterval)
-      //   document.removeEventListener("mousemove", handleMouseMove)
+      //   document.removeEventListener("keydown", handleMouseMove)
       // } else {
         player.vel = [0, 0]
       // }
@@ -125,12 +135,10 @@ class GameView {
     nextLevel(level) {
       this.level = level
       this.game.level = level
-      if (LEVELS[this.level] === undefined){
-        alert("YOU WIN!")
-      }
       this.game.addEnemies(LEVELS[this.level].enemies)
       this.game.addObjectives(LEVELS[this.level].objective.pos)
-      this.player.pos = [400, 900]
+      const gameCanvas = document.getElementById("game-canvas")
+      this.player.pos = [gameCanvas.width / 2, gameCanvas.height - 50]
       this.player.hitPoints = 10
       this.player.invincible = false
       this.game.bullets.length = 0

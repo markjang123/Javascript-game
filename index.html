@@ -7,57 +7,77 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
   </head>
-
+  
   <body>
-    <audio loop id="audio" src="./music/58 NieR Automata OST - The Sound Of The End ( 8 - Bit ).mp3"></audio>
-    <div class="background">
-      <button id="mute-button">
-        Mute
-        <!-- <img src="https://img.icons8.com/nolan/96/high-volume.png"/>
-        <img src="https://img.icons8.com/nolan/96/mute.png"/> -->
-        <!-- <img src="https://img.icons8.com/nolan/64/no-audio.png"/> -->
-      </button>
-      <div class="next-level">
-        <div class="level">LEVEL COMPLETE</div>
-        <button id="next-level-button">next level</button>
-      </div>
-      <div class="game-over">
-        <div class="level">GAME OVER</div>
-        <button class="start-over-button">start over</button>
-      </div>
-      <div class="start-screen">
-        <div class="intro">Virus</div>
-        <br> 
-        <div class="subtitle">A bullet hell game made with vanilla JavaScript</div>
+    <div class="left-column">
+      <audio loop id="audio" src="./music/58 NieR Automata OST - The Sound Of The End ( 8 - Bit ).mp3"></audio>
+        <div>
+          <p class="title">VIRUS</p>
+          <p class="creator">by: Mark Jang</p>
+        </div>
+        <p class="instructions">
+          USE WASD TO MOVE <br>
+          HOLD AND DRAG LEFT MOUSE TO FIRE <br>
+        </p>
+        <p class="instructions-2">
+          YOUR MISSION: <br>
+          DESTROY THE GRAY NODE <br>
+          DONT GET HIT <br>
+        </p>
+    </div>
+    <canvas id="game-canvas" height="800" width="800"></canvas>
+
+
+    <div class="start-screen">
+      <div class="intro">VIRUS</div>
+      <br> 
+      <div class="subtitle">A bullet hell game made with vanilla JavaScript</div>
+      <div class="start-button-wrapper">
         <button class="start-game-button">Play</button>
       </div>
-      <div class="victory-screen">
-        <div class="level">YOU WIN!</div>
+    </div>
+
+    <div class="next-level">
+      <div class="level">LEVEL COMPLETE</div>
+      <div class="next-level-button-wrapper">
+        <button id="next-level-button">next level</button>
+      </div>
+    </div>
+
+    <div class="game-over">
+      <div class="level">GAME OVER</div>
+      <div class="start-over-button-wrapper">
         <button class="start-over-button">start over</button>
       </div>
-      <p class="title">VIRUS</p>
-      <p class="creator">by: Mark Jang</p>
-      <p class="instructions">
-        USE WASD TO MOVE <br>
-        HOLD LEFT MOUSE TO FIRE <br>
-        MOVE MOUSE TO AIM
-      </p>
-      <p class="instructions-2">
-        YOUR MISSION: <br>
-        DESTROY THE GRAY NODE <br>
-        DONT GET HIT <br>
-      </p>
-      <canvas id="game-canvas" height="950" width="950"></canvas>
-      <p class="cta">Connect with me!</p>
-      <a target="_blank" class="linkedin-icon" href="https://linkedin.com/in/mark-jang-b89b5a1b5">
-        <img src="https://img.icons8.com/nolan/128/linkedin.png"/>
-      </a>
-      <a target="_blank" class="github-icon" href="https://github.com/markjang123">
-        <img src="https://img.icons8.com/nolan/128/github.png"/>
-      </a>
     </div>
-    <script type="application/javascript" src="./dist/main.js"></script>
+
+    <div class="victory-screen">
+      <div class="level">YOU WIN!</div>
+      <div class="start-over-button-wrapper">
+        <button class="start-over-button">start over</button>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="mute-button-wrapper">
+        <button id="mute-button">
+          Mute
+        </button>
+      </div>
+      <div>
+          <p class="cta">Connect with me!</p>
+          <div class="profile-links">
+            <a target="_blank" class="linkedin-icon" href="https://linkedin.com/in/mark-jang-b89b5a1b5">
+              <img src="https://img.icons8.com/nolan/128/linkedin.png"/>
+            </a>
+            <a target="_blank" class="github-icon" href="https://github.com/markjang123">
+              <img src="https://img.icons8.com/nolan/128/github.png"/>
+            </a>
+          </div>
+      </div>
+    </div>
   </body>
+  <script type="application/javascript" src="./dist/main.js"></script>
 </html>
 
 
