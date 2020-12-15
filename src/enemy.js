@@ -18,8 +18,10 @@ class Enemy extends MovingObject{
       this.toggleTrackingInterval
       this.fireAngle = -3.14
       this.originalColor = this.color
-      this.pose = [12, 50]
-      this.defaultPose = [12, 50]
+      this.pose = [5, 720]
+      this.defaultPose = [12, 720]
+      this.nextFrameCounter = 0
+      this.animationRate = this.randomIntInRange(15, 40)
       this.startFiring()
       if (this.type === "standard"){
         this.toggleTracking()
@@ -41,11 +43,24 @@ class Enemy extends MovingObject{
         this.game.addParticles(pos)
       }
     }
+    randomIntInRange(min, max){
+      return Math.floor((Math.random() * ((max + 1) - min) + min))
+  }
     draw(ctx){
       // ctx.drawImage(img, srcX, srcY, srcW, srcH, ctxX, ctxY, ctxW, ctxH)
+      ctx.shadowColor = "yellow";
+      ctx.shadowBlur = 10;
       let enemy = new Image()
       enemy.src = "https://opengameart.org/sites/default/files/ships_saucer_0.png"
-      ctx.drawImage(enemy, this.pose[0], this.pose[1], 92, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
+      ctx.drawImage(enemy, this.pose[0], this.pose[1], 94, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
+      this.nextFrameCounter += 1
+      if (this.nextFrameCounter > this.animationRate){
+        this.nextFrameCounter = 0
+      }
+      this.nextFrameCounter === 0 ? this.pose[0] += 96 : this.pose[0] += 0
+      if (this.pose[0] > 600) {
+        this.pose[0] = 0
+      }
     }
     startFiring(){
         let fireRate
@@ -83,7 +98,7 @@ class Enemy extends MovingObject{
         }, 500)
     }
     blink(){
-      this.pose = [577, 50]
+      this.pose = [577, 720]
       // this.color = "red"
       setTimeout(() => this.pose = this.defaultPose, 100)
     }
@@ -99,7 +114,7 @@ class Enemy extends MovingObject{
         if (otherObject instanceof Laser) {
             otherObject.remove()
             this.hitPoints -= 1
-            this.blink()
+            // this.blink()
             if (this.hitPoints <= 0) {
                 this.remove();
                 otherObject.remove();

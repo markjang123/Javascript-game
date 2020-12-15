@@ -27,6 +27,8 @@ class Player extends MovingObject {
     }
     draw(ctx){
       // ctx.drawImage(img, srcX, srcY, srcW, srcH, ctxX, ctxY, ctxW, ctxH)
+      ctx.shadowColor = "violet";
+      ctx.shadowBlur = 10;
       let player = new Image()
       player.src = "https://opengameart.org/sites/default/files/ships_saucer_0.png"
       ctx.drawImage(player, this.pose[0], this.pose[1], 92, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)

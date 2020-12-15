@@ -18,8 +18,8 @@ class Game {
         this.enemies = [];
         this.objectives = [];
         this.particles = [];
-        // this.addEnemies(enemies);
-        this.addObjectives([DIM_X / 2, 30]);
+        this.addEnemies(enemies);
+        this.addObjectives([DIM_X / 2, 50]);
         this.level = level
     }
     add(object) {

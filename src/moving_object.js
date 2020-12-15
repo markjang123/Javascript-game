@@ -15,8 +15,6 @@ class MovingObject{
     };
     draw(ctx) {
       ctx.fillStyle = this.color;
-      ctx.shadowColor = "red";
-      ctx.shadowBlur = 10;
       ctx.beginPath();
       ctx.arc( //x: this.pos[0], y: this.pos[1]
         this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true

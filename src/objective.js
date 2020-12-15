@@ -15,8 +15,9 @@ class Objective extends MovingObject {
       this.fireInterval
       this.originalColor = this.color
       //   this.startFiring()
-      this.pose = [0, 500]
+      this.pose = [0, 495]
       this.defaultPose = [0, 500]
+      this.nextFrameCounter = 0
     }
     
     startFiring(){
@@ -28,9 +29,19 @@ class Objective extends MovingObject {
         setTimeout(() => this.pose = this.defaultPose, 500)
     }
     draw(ctx){
+      ctx.shadowColor = "red";
+      ctx.shadowBlur = 10;
       let objective = new Image()
       objective.src = "https://opengameart.org/sites/default/files/ships_saucer_0.png"
-      ctx.drawImage(objective, this.pose[0], this.pose[1], 93, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
+      ctx.drawImage(objective, this.pose[0], this.pose[1], 94, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
+      this.nextFrameCounter += 1
+      if (this.nextFrameCounter > 25){
+        this.nextFrameCounter = 0
+      }
+      this.nextFrameCounter === 0 ? this.pose[0] += 96 : this.pose[0] += 0
+      if (this.pose[0] > 600) {
+        this.pose[0] = 0
+      }
     }
     remove() {
         let pos = this.pos
@@ -42,7 +53,7 @@ class Objective extends MovingObject {
         if (otherObject instanceof Laser) {
             otherObject.remove()
             this.hitPoints -= 1
-            this.blink()
+            // this.blink()
             if (this.hitPoints <= 0) {
                 this.remove();
                 otherObject.remove();
