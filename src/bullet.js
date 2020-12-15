@@ -9,11 +9,14 @@ class Bullet extends MovingObject{
         super(options)
         this.speed = 2
     }
+    showDamage(pos){
+      this.game.addHitParticles(pos)
+    }
     collideWith(otherObject) {
       if (otherObject instanceof Player) {
         if (otherObject.invincible) return false;
+        this.showDamage(this.pos)
         this.remove()
-        otherObject.blink()
         otherObject.hitPoints -= 1
         if (otherObject.hitPoints <= 0){
           otherObject.remove()
