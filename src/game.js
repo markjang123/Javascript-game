@@ -5,6 +5,7 @@ import Objective from "./objective"
 import Laser from "./laser"
 import SquareParticle from './square_particle'
 import {LEVELS} from './game_view'
+import CircleParticle from "./circle_particle";
 
 const BG_COLOR = "#000026";
 const gameCanvas = document.getElementById("game-canvas")
@@ -33,7 +34,7 @@ class Game {
         this.enemies.push(object)
       } else if (object instanceof Objective) {
         this.objectives.push(object)
-      } else if (object instanceof SquareParticle) {
+      } else if (object instanceof SquareParticle || object instanceof CircleParticle) {
         this.particles.push(object)
       } else {
         throw new Error("unknown type of object");
@@ -51,6 +52,9 @@ class Game {
     };
     addParticles(pos) {
         this.add(new SquareParticle({ game: this, pos: pos }));
+    };
+    addHitParticles(pos) {
+        this.add(new CircleParticle({ game: this, pos: pos }));
     };
     addEnemies(enemies) {
       let turretPos = [[100, 100], [300, 400], [500, 500], [20, 400], [500, 350], [250, 100], [450, 400], [400, 425]]
@@ -189,7 +193,7 @@ class Game {
         this.enemies.splice(this.enemies.indexOf(object), 1)
       } else if (object instanceof Objective) {
         this.objectives.splice(this.objectives.indexOf(object), 1)
-      } else if (object instanceof SquareParticle) {
+      } else if (object instanceof SquareParticle || object instanceof CircleParticle) {
         this.particles.splice(this.particles.indexOf(object), 1)
       } else {
         throw new Error("unknown type of object");

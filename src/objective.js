@@ -43,6 +43,9 @@ class Objective extends MovingObject {
         this.pose[0] = 0
       }
     }
+    showDamage(pos){
+      this.game.addHitParticles(pos)
+    }
     remove() {
         let pos = this.pos
         this.game.remove(this);
@@ -51,9 +54,9 @@ class Objective extends MovingObject {
       };
     collideWith(otherObject) {
         if (otherObject instanceof Laser) {
+            this.showDamage(otherObject.pos)
             otherObject.remove()
             this.hitPoints -= 1
-            // this.blink()
             if (this.hitPoints <= 0) {
                 this.remove();
                 otherObject.remove();

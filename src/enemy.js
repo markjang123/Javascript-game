@@ -43,6 +43,9 @@ class Enemy extends MovingObject{
         this.game.addParticles(pos)
       }
     }
+    showDamage(pos){
+      this.game.addHitParticles(pos)
+    }
     randomIntInRange(min, max){
       return Math.floor((Math.random() * ((max + 1) - min) + min))
   }
@@ -112,6 +115,7 @@ class Enemy extends MovingObject{
       };
     collideWith(otherObject) {
         if (otherObject instanceof Laser) {
+            this.showDamage(otherObject.pos)
             otherObject.remove()
             this.hitPoints -= 1
             // this.blink()

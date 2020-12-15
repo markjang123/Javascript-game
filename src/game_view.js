@@ -58,7 +58,7 @@ class GameView {
     document.addEventListener("keydown", (e) => {
     switch(e.key){
       case "g":
-        console.log(getXOffset(), getYoffset(), player.pos)
+        game.addHitParticles([100, 100])
         break;
       case "w":
         player.vel = [0, -5]
