@@ -28,12 +28,20 @@ export const LEVELS = {
     objective: {pos: [425, 0]}
   },
   2: {
-    enemies: [standard, turret, standard, spinning],
+    enemies: [standard, standard, spinning],
     objective: {pos: [500, 150]}
   }, 
   3: {
     enemies: [standard, turret, standard, turret, spinning, spinning],
     objective: {pos: [50, 425]}
+  },
+  4: {
+    enemies: [turret, turret, turret, turret, turret, spinning],
+    objective: {pos: [50, 50]}
+  },
+  5: {
+    enemies: [turret, turret, turret, turret, turret, spinning, standard, standard],
+    objective: {pos: [300, 50]}
   }
 }
 class GameView {
