@@ -19,6 +19,7 @@ class Player extends MovingObject {
         this.pose = [12, 50]
         // this.pose = [577, 50]
         this.defaultPose = [12, 50]
+        this.regenerateCounter = 0
 
     }
     blink(){
@@ -34,6 +35,14 @@ class Player extends MovingObject {
       
       player.src = "./src/images/ships_saucer.png"
       ctx.drawImage(player, this.pose[0], this.pose[1], 92, 92, this.pos[0] - this.radius, this.pos[1] - this.radius, this.radius * 2, this.radius * 2)
+      this.regenerateCounter += 1
+      if (this.regenerateCounter === 120) {
+        if (this.hitPoints < this.maxHealth){
+          this.hitPoints += 0.25
+          if (this.hitPoints > this.maxHealth) this.hitPoints = this.maxHealth
+        }
+        this.regenerateCounter = 0
+      }
     }
     remove() {
       let pos = this.pos

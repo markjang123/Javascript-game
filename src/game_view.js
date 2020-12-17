@@ -104,6 +104,7 @@ class GameView {
     }
     
     document.addEventListener("mousedown", (e) => {
+      e.preventDefault()
       document.addEventListener("mousemove", handleMouseMove)
       fireInterval = setInterval(() => {
       let angle = Math.atan2(clientY - (player.pos[1] + getYoffset()), clientX - (player.pos[0] + getXOffset()))
