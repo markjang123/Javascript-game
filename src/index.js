@@ -10,13 +10,13 @@ const showGameCanvas = () => {
   // let startScreen = document.querySelector(".start-screen")
   // gameCanvas.height = parseFloat(startScreen.style.height) * 1.2
   // gameCanvas.width = parseFloat(startScreen.style.width) * 1.2
-  gameCanvas.style.width = `${window.innerWidth / 2}px`
-  gameCanvas.style.height = `${window.innerWidth / 2}px`
+  gameCanvas.style.width = `50%`
+  gameCanvas.style.height = `70%`
 }
 document.addEventListener("DOMContentLoaded", function () {
   let startScreen = document.querySelector(".start-screen")
-  startScreen.style.height = `${window.innerWidth / 2}px`
-  startScreen.style.width = `${window.innerWidth / 2}px`
+  startScreen.style.height = '70%'//`${window.innerWidth / 2}px`
+  startScreen.style.width = '50%'//`${window.innerWidth / 2}px`
 
   let leftColumn = document.querySelector(".left-column")
   leftColumn.style.height = `${window.innerWidth / 2}px`

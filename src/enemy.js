@@ -38,7 +38,6 @@ class Enemy extends MovingObject{
       }, 2500)
     }
     explode(pos, size){
-      debugger
       for(let i = 1; i <= size; i++){
         this.game.addParticles(pos)
       }

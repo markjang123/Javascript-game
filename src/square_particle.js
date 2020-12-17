@@ -26,7 +26,6 @@ class SquareParticle extends MovingObject{
        this.vel = this.randomDirection()
     }
     draw(ctx) {
-        debugger
         ctx.shadowColor = this.color;
         ctx.shadowBlur = 50
         ctx.lineWidth = this.randomIntInRange(1, 5)

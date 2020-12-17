@@ -6,6 +6,7 @@ import Laser from "./laser"
 import SquareParticle from './square_particle'
 import {LEVELS} from './game_view'
 import CircleParticle from "./circle_particle";
+import LifeBar from './life_bar'
 
 const BG_COLOR = "#000026";
 const gameCanvas = document.getElementById("game-canvas")
@@ -19,6 +20,7 @@ class Game {
         this.enemies = [];
         this.objectives = [];
         this.particles = [];
+        this.lifebar = []
         this.addEnemies(enemies);
         this.addObjectives([DIM_X / 2, 50]);
         this.level = level
@@ -36,6 +38,8 @@ class Game {
         this.objectives.push(object)
       } else if (object instanceof SquareParticle || object instanceof CircleParticle) {
         this.particles.push(object)
+      } else if (object instanceof LifeBar) {
+        this.lifebar.push(object)
       } else {
         throw new Error("unknown type of object");
       }
@@ -46,6 +50,9 @@ class Game {
           this.enemies.forEach(enemy => enemy.fire())
         }
       })
+    }
+    addLifeBar(){
+      this.add(new LifeBar({game: this, pos:[DIM_X - 170, DIM_Y - 30]}))
     }
     addObjectives(pos) {
         this.add(new Objective({ game: this, pos: pos }));
@@ -74,8 +81,8 @@ class Game {
     gameOver(){
       let gameOver = document.querySelector(".game-over")
       gameOver.style.display = "flex"
-      gameOver.style.height = `${window.innerWidth / 2}px`
-      gameOver.style.width = `${window.innerWidth / 2}px`
+      gameOver.style.height = '70%'//`${window.innerWidth / 2}px`
+      gameOver.style.width = '50%'//`${window.innerWidth / 2}px`
       let gameCanvas = document.querySelector(`#game-canvas`)
       gameCanvas.style.display = "none"
       gameCanvas.style.filter = "blur(3px)"
@@ -83,8 +90,8 @@ class Game {
     }
     showVictoryScreen(){
       let victoryScreen = document.querySelector(".victory-screen")
-      victoryScreen.style.height = `${window.innerWidth / 2}px`
-      victoryScreen.style.width = `${window.innerWidth / 2}px`
+      victoryScreen.style.height = '70%'//`${window.innerWidth / 2}px`
+      victoryScreen.style.width = '50%'//`${window.innerWidth / 2}px`
       victoryScreen.style.display = "flex"
       let gameCanvas = document.querySelector(`#game-canvas`)
       gameCanvas.style.display = "none"
@@ -94,8 +101,8 @@ class Game {
     showNextLevelScreen(){
       let nextLevel = document.querySelector(".next-level")
       nextLevel.style.display = "flex"
-      nextLevel.style.height = `${window.innerWidth / 2}px`
-      nextLevel.style.width = `${window.innerWidth / 2}px`
+      nextLevel.style.height = '70%'//`${window.innerWidth / 2}px`
+      nextLevel.style.width = '50%'//`${window.innerWidth / 2}px`
       let gameCanvas = document.querySelector(`#game-canvas`)
       gameCanvas.style.display = "none"
       gameCanvas.style.filter = "blur(3px)"
@@ -129,7 +136,7 @@ class Game {
       return player;
     };
     allObjects() {
-      return [].concat(this.players, this.lasers, this.bullets, this.enemies, this.objectives, this.particles);
+      return [].concat(this.players, this.lasers, this.bullets, this.enemies, this.objectives, this.particles, this.lifebar);
     };
     
     checkCollisions() {

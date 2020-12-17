@@ -49,6 +49,7 @@ class GameView {
         this.ctx = ctx;
         this.game = game;
         this.player = this.game.addPlayer();
+        this.game.addLifeBar()
         this.level = 1
     }
     bindKeyHandlers() {

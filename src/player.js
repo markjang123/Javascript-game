@@ -10,6 +10,7 @@ class Player extends MovingObject {
         super(options)
         this.radius = 15
         this.isRemovable = false;
+        this.maxHealth = 10
         this.hitPoints = 10
         this.color = "white"
         this.originalColor = this.color
@@ -41,7 +42,6 @@ class Player extends MovingObject {
       // clearInterval(this.fireInterval)
     };
     explode(pos, size){
-      debugger
       for(let i = 1; i <= size; i++){
         this.game.addParticles(pos)
       }

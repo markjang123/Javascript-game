@@ -49,7 +49,7 @@ class Objective extends MovingObject {
     remove() {
         let pos = this.pos
         this.game.remove(this);
-        this.explode(pos, 100)
+        this.explode(pos, 50)
         // clearInterval(this.fireInterval)
       };
     collideWith(otherObject) {
@@ -95,7 +95,6 @@ class Objective extends MovingObject {
         this.game.add(asteroid2);
       };
       explode(pos, size){
-        debugger
         for(let i = 1; i <= size; i++){
           this.game.addParticles(pos)
         }
